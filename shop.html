@@ -11,7 +11,7 @@
   <!-- Header -->
   <header class="bg-white shadow-md fixed w-full z-50 top-0">
     <div class="container mx-auto flex items-center justify-between p-4">
-      <a href="index.html" class="text-2xl font-bold text-blue-600">E-Shop</a>
+      <a href="index.html" class="text-2xl font-bold text-blue-600">UrbanNest</a>
       <nav>
         <ul class="flex space-x-6 items-center">
           <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Products Grid -->
-    <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
       <!-- Products will be dynamically inserted here -->
     </div>
   </main>
@@ -95,9 +95,9 @@
     // Function to fetch products from backend API and render them
     async function fetchProducts(category = '') {
       try {
-        let url = \`\${API_BASE_URL}/api/products\`;
+        let url = `${API_BASE_URL}/api/products`;
         if (category) {
-          url += \`?category=\${encodeURIComponent(category)}\`;
+          url += `?category=${encodeURIComponent(category)}`;
         }
         const response = await fetch(url);
         const products = await response.json();
@@ -105,19 +105,53 @@
         const productList = document.getElementById('product-list');
         productList.innerHTML = '';
 
+        // Categories and their product counts
+        const categories = {
+          'Handbags & Clutches': [],
+          'Wall Art & Mirrors': [],
+          'Home Living Essentials': [],
+          'Bohemian Furniture & Swings': [],
+          'Gifting & Custom Sets': []
+        };
+
+        // Distribute products into categories
         products.forEach(product => {
-          const productCard = document.createElement('a');
-          productCard.href = \`product\${product._id}.html\`;
-          productCard.className = 'bg-white rounded shadow p-4 hover:shadow-lg transition flex flex-col';
-
-          productCard.innerHTML = \`
-            <img src="\${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/200x150'}" alt="\${product.name}" class="mb-4 w-full h-40 object-cover rounded" />
-            <h2 class="text-lg font-semibold">\${product.name}</h2>
-            <p class="text-blue-600 font-bold mt-2">\${product.price ? '$' + product.price.toFixed(2) : ''}</p>
-          \`;
-
-          productList.appendChild(productCard);
+          if (categories[product.category] && categories[product.category].length < 4) {
+            categories[product.category].push(product);
+          }
         });
+
+        // Render products by category
+        for (const [category, items] of Object.entries(categories)) {
+          if (items.length > 0) {
+            const categoryHeader = document.createElement('h2');
+            // Rename category headers as per new names
+            const categoryNameMap = {
+              'Handbags & Clutches': 'Handbags & Clutches',
+              'Wall Art & Mirrors': 'Wall Art & Mirrors',
+              'Home Living Essentials': 'Home Living Essentials',
+              'Bohemian Furniture & Swings': 'Bohemian Furniture & Swings',
+              'Gifting & Custom Sets': 'Gifting & Custom Sets'
+            };
+            categoryHeader.textContent = categoryNameMap[category] || category;
+            categoryHeader.className = 'text-2xl font-bold mt-8 mb-4 col-span-full';
+            productList.appendChild(categoryHeader);
+
+            items.forEach(product => {
+              const productCard = document.createElement('a');
+              productCard.href = `product${product._id}.html`;
+              productCard.className = 'bg-white rounded shadow p-4 hover:shadow-lg transition flex flex-col';
+
+              productCard.innerHTML = `
+                <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/200x150'}" alt="${product.name}" class="mb-4 w-full h-40 object-cover rounded" />
+                <h2 class="text-lg font-semibold">${product.name}</h2>
+                <p class="text-blue-600 font-bold mt-2">${product.price ? '$' + product.price.toFixed(2) : ''}</p>
+              `;
+
+              productList.appendChild(productCard);
+            });
+          }
+        }
       } catch (error) {
         console.error('Error fetching products:', error);
       }
