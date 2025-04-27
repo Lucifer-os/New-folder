@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UrbanNest</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>UrbanNest - Account</title>
   <link rel="stylesheet" href="header.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-700">
+<body>
 
   <!-- Header -->
-  <header class="bg-white shadow-md">
-    <div class="container mx-auto flex flex-wrap items-center justify-between p-4">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 mb-2 md:mb-0">UrbanNest</a>
-      <nav class="w-full md:w-auto">
-        <ul class="flex flex-wrap md:flex-nowrap space-x-0 md:space-x-6 items-center justify-center md:justify-start gap-2 md:gap-0">
-          <li><a href="index.html" class="hover:text-blue-600">Home</a></li>
-          <li><a href="shop.html" class="hover:text-blue-600">Shop</a></li>
-          <li><a href="cart.html" class="hover:text-blue-600">Cart</a></li>
-          <li><a href="wishlist.html" class="hover:text-blue-600">Wishlist</a></li>
-          <li><a href="contact.html" class="hover:text-blue-600">Contact</a></li>
-          <li><a href="about.html" class="hover:text-blue-600">About</a></li>
-          <li><a href="account.html" class="hover:text-blue-600 font-semibold">Account</a></li>
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo">UrbanNest</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="account.html" class="active">Account</a></li>
         </ul>
       </nav>
       <div class="button-container">
@@ -41,79 +42,46 @@
     </div>
   </header>
 
-  <main class="container mx-auto flex flex-col md:flex-row max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden mt-12 md:mt-24">
-    <div class="tabs flex flex-col items-center justify-center bg-indigo-600 text-white p-8 md:w-2/5">
-      <h2 class="text-3xl font-bold mb-4">Welcome Back!</h2>
-      <p class="mb-6 text-center max-w-xs">To keep connected with us please login with your personal info</p>
-      <button id="login-tab" class="btn-tab active mb-4 px-6 py-2 rounded-full bg-white text-indigo-600 font-semibold">Login</button>
-      <button id="signup-tab" class="btn-tab px-6 py-2 rounded-full border border-white font-semibold hover:bg-white hover:text-indigo-600 transition">Sign Up</button>
-    </div>
-
-    <section id="login-section" class="form-section p-8 md:w-3/5">
-      <h1 class="text-2xl font-bold mb-6 text-gray-800">Login to your account</h1>
-      <form class="flex flex-col gap-4">
-        <label for="login-email" class="font-semibold text-gray-700">Email</label>
-        <input type="email" id="login-email" name="email" required class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
-
-        <label for="login-password" class="font-semibold text-gray-700">Password</label>
-        <input type="password" id="login-password" name="password" required class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
-
-        <button type="submit" class="btn bg-indigo-600 text-white py-3 rounded font-semibold hover:bg-indigo-700 transition mt-4">Login</button>
-      </form>
-      <p class="text-center mt-4 text-gray-600">Don't have an account? <a href="#" id="to-signup" class="text-indigo-600 font-semibold hover:underline">Sign Up</a></p>
-    </section>
-
-    <section id="signup-section" class="form-section p-8 md:w-3/5 hidden">
-      <h1 class="text-2xl font-bold mb-6 text-gray-800">Create a new account</h1>
-      <form class="flex flex-col gap-4">
-        <label for="signup-name" class="font-semibold text-gray-700">Name</label>
-        <input type="text" id="signup-name" name="name" required class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
-
-        <label for="signup-email" class="font-semibold text-gray-700">Email</label>
-        <input type="email" id="signup-email" name="email" required class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
-
-        <label for="signup-password" class="font-semibold text-gray-700">Password</label>
-        <input type="password" id="signup-password" name="password" required class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
-
-        <button type="submit" class="btn bg-indigo-600 text-white py-3 rounded font-semibold hover:bg-indigo-700 transition mt-4">Sign Up</button>
-      </form>
-      <p class="text-center mt-4 text-gray-600">Already have an account? <a href="#" id="to-login" class="text-indigo-600 font-semibold hover:underline">Login</a></p>
-    </section>
+  <!-- Account Content -->
+  <main class="container py-24 max-w-lg mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Your Account</h1>
+    <!-- Account details and settings will be dynamically loaded here -->
   </main>
 
-  <script>
-    const loginTab = document.getElementById('login-tab');
-    const signupTab = document.getElementById('signup-tab');
-    const loginSection = document.getElementById('login-section');
-    const signupSection = document.getElementById('signup-section');
-    const toSignupLink = document.getElementById('to-signup');
-    const toLoginLink = document.getElementById('to-login');
-
-    function showLogin() {
-      loginTab.classList.add('active');
-      signupTab.classList.remove('active');
-      loginSection.classList.remove('hidden');
-      signupSection.classList.add('hidden');
-    }
-
-    function showSignup() {
-      signupTab.classList.add('active');
-      loginTab.classList.remove('active');
-      signupSection.classList.remove('hidden');
-      loginSection.classList.add('hidden');
-    }
-
-    loginTab.addEventListener('click', showLogin);
-    signupTab.addEventListener('click', showSignup);
-    toSignupLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      showSignup();
-    });
-    toLoginLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      showLogin();
-    });
-  </script>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div>
+        <h2>UrbanNest</h2>
+        <p>Quality electronics at your fingertips.</p>
+      </div>
+      <div>
+        <h2>Quick Links</h2>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <p>Email: support@urbannest.com</p>
+        <p>Phone: 1800-123-4567</p>
+      </div>
+      <div>
+        <h2>Follow Us</h2>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-blue-600">Facebook</a>
+          <a href="#" class="hover:text-blue-600">Twitter</a>
+          <a href="#" class="hover:text-blue-600">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-gray-500 py-4 border-t">
+      &copy; 2024 UrbanNest. All rights reserved.
+    </div>
+  </footer>
 
 </body>
 </html>

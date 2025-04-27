@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UrbanNest</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<title>UrbanNest - Home</title>
   <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-700">
+<body>
 
   <!-- Header -->
   <header>
@@ -42,11 +42,46 @@
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="container px-4 py-24">
-    <h1 class="text-4xl font-bold mb-6">Welcome to UrbanNest</h1>
-    <p class="text-gray-700 max-w-xl">Your one-stop shop for the latest electronics. Explore our wide range of products with crisp images, clear descriptions, and seamless navigation.</p>
-  </main>
+  <!-- Hero Section -->
+  <section class="hero bg-blue-600 text-white py-20">
+    <div class="container text-center">
+      <h1 class="text-5xl font-bold mb-4">Welcome to UrbanNest</h1>
+      <p class="text-xl max-w-3xl mx-auto mb-8">Your one-stop shop for the latest electronics and gadgets. Quality products, unbeatable prices.</p>
+      <a href="shop.html" class="btn px-8 py-4 text-lg font-semibold rounded">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Featured Categories -->
+  <section class="categories py-16">
+    <div class="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <a href="shop.html?category=Smartphones" class="category-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="https://foreverbuy.in/images/categories/smartphones.jpg" alt="Smartphones" class="w-full h-48 object-cover" />
+        <h3 class="text-center text-xl font-semibold p-4">Smartphones</h3>
+      </a>
+      <a href="shop.html?category=Laptops" class="category-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="https://foreverbuy.in/images/categories/laptops.jpg" alt="Laptops" class="w-full h-48 object-cover" />
+        <h3 class="text-center text-xl font-semibold p-4">Laptops</h3>
+      </a>
+      <a href="shop.html?category=Accessories" class="category-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="https://foreverbuy.in/images/categories/accessories.jpg" alt="Accessories" class="w-full h-48 object-cover" />
+        <h3 class="text-center text-xl font-semibold p-4">Accessories</h3>
+      </a>
+      <a href="shop.html?category=Home+Appliances" class="category-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img src="https://foreverbuy.in/images/categories/home-appliances.jpg" alt="Home Appliances" class="w-full h-48 object-cover" />
+        <h3 class="text-center text-xl font-semibold p-4">Home Appliances</h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-products py-16 bg-gray-100">
+    <div class="container">
+      <h2 class="text-3xl font-bold mb-8 text-center">Featured Products</h2>
+      <div id="featured-products-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Featured products will be dynamically loaded here -->
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
@@ -66,8 +101,8 @@
       </div>
       <div>
         <h2>Contact</h2>
-        <p>Email: support@eshop.com</p>
-        <p>Phone: 123-456-7890</p>
+        <p>Email: support@urbannest.com</p>
+        <p>Phone: 1800-123-4567</p>
       </div>
       <div>
         <h2>Follow Us</h2>
@@ -82,6 +117,33 @@
       &copy; 2024 UrbanNest. All rights reserved.
     </div>
   </footer>
+
+  <script>
+    // Example script to load featured products dynamically
+    document.addEventListener('DOMContentLoaded', () => {
+      const featuredProducts = [
+        { id: 1, name: 'Smartphone X', price: 799, image: 'https://foreverbuy.in/images/products/smartphone-x.jpg' },
+        { id: 2, name: 'Laptop Pro', price: 1299, image: 'https://foreverbuy.in/images/products/laptop-pro.jpg' },
+        { id: 3, name: 'Wireless Headphones', price: 199, image: 'https://foreverbuy.in/images/products/wireless-headphones.jpg' },
+        { id: 4, name: 'Smartwatch Series 5', price: 299, image: 'https://foreverbuy.in/images/products/smartwatch-series5.jpg' }
+      ];
+
+      const container = document.getElementById('featured-products-list');
+      featuredProducts.forEach(product => {
+        const productCard = document.createElement('a');
+        productCard.href = `product${product.id}.html`;
+        productCard.className = 'product-card';
+
+        productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p class="price">$${product.price.toFixed(2)}</p>
+        `;
+
+        container.appendChild(productCard);
+      });
+    });
+  </script>
 
 </body>
 </html>

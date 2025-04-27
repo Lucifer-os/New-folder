@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UrbanNest</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<title>UrbanNest - Shop</title>
   <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-gray-700">
+<body>
 
   <!-- Header -->
   <header>
@@ -42,37 +42,12 @@
     </div>
   </header>
 
-  <!-- Mobile menu toggle button -->
-  <div class="fixed top-4 right-4 md:hidden z-50">
-    <button id="mobile-menu-button" aria-label="Toggle menu" class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="12" x2="21" y2="12" />
-        <line x1="3" y1="6" x2="21" y2="6" />
-        <line x1="3" y1="18" x2="21" y2="18" />
-      </svg>
-    </button>
-  </div>
-
   <!-- Shop Content -->
-  <main class="container px-4 py-24">
-    <h1 class="text-4xl font-bold mb-6">Shop</h1>
+  <main class="container py-24">
+    <h1 class="text-4xl font-bold mb-8 text-center">Shop Our Products</h1>
 
-    <!-- Filters placeholder -->
-    <div class="mb-6 max-w-md">
-      <label for="category-filter" class="block font-semibold mb-2">Filter by Category:</label>
-      <select id="category-filter" class="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 transition">
-        <option value="">All</option>
-        <option value="Handbags & Clutches">Handbags & Clutches</option>
-        <option value="Wall Art & Mirrors">Wall Art & Mirrors</option>
-        <option value="Home Living Essentials">Home Living Essentials</option>
-        <option value="Bohemian Furniture & Swings">Bohemian Furniture & Swings</option>
-        <option value="Gifting & Custom Sets">Gifting & Custom Sets</option>
-      </select>
-    </div>
-
-    <!-- Products Grid -->
-    <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <!-- Products will be dynamically inserted here -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Product cards will be dynamically loaded here -->
     </div>
   </main>
 
@@ -94,8 +69,8 @@
       </div>
       <div>
         <h2>Contact</h2>
-        <p>Email: support@eshop.com</p>
-        <p>Phone: 123-456-7890</p>
+        <p>Email: support@urbannest.com</p>
+        <p>Phone: 1800-123-4567</p>
       </div>
       <div>
         <h2>Follow Us</h2>
@@ -112,80 +87,29 @@
   </footer>
 
   <script>
-    // Base URL of the backend API
-    const API_BASE_URL = 'http://localhost:5000';
+    // Example script to load products dynamically
+    document.addEventListener('DOMContentLoaded', () => {
+      const products = [
+        { id: 1, name: 'Smartphone X', price: 799, image: 'https://foreverbuy.in/images/products/smartphone-x.jpg' },
+        { id: 2, name: 'Laptop Pro', price: 1299, image: 'https://foreverbuy.in/images/products/laptop-pro.jpg' },
+        { id: 3, name: 'Wireless Headphones', price: 199, image: 'https://foreverbuy.in/images/products/wireless-headphones.jpg' },
+        { id: 4, name: 'Smartwatch Series 5', price: 299, image: 'https://foreverbuy.in/images/products/smartwatch-series5.jpg' }
+      ];
 
-    // Function to fetch products from backend API and render them
-    async function fetchProducts(category = '') {
-      try {
-        let url = `${API_BASE_URL}/api/products`;
-        if (category) {
-          url += `?category=${encodeURIComponent(category)}`;
-        }
-        const response = await fetch(url);
-        const products = await response.json();
+      const container = document.querySelector('main .grid');
+      products.forEach(product => {
+        const productCard = document.createElement('a');
+        productCard.href = `product${product.id}.html`;
+        productCard.className = 'product-card';
 
-        const productList = document.getElementById('product-list');
-        productList.innerHTML = '';
+        productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p class="price">$${product.price.toFixed(2)}</p>
+        `;
 
-        // Categories and their product counts
-        const categories = {
-          'Handbags & Clutches': [],
-          'Wall Art & Mirrors': [],
-          'Home Living Essentials': [],
-          'Bohemian Furniture & Swings': [],
-          'Gifting & Custom Sets': []
-        };
-
-        // Distribute products into categories
-        products.forEach(product => {
-          if (categories[product.category] && categories[product.category].length < 4) {
-            categories[product.category].push(product);
-          }
-        });
-
-        // Render products by category
-        for (const [category, items] of Object.entries(categories)) {
-          if (items.length > 0) {
-            const categoryHeader = document.createElement('h2');
-            // Rename category headers as per new names
-            const categoryNameMap = {
-              'Handbags & Clutches': 'Handbags & Clutches',
-              'Wall Art & Mirrors': 'Wall Art & Mirrors',
-              'Home Living Essentials': 'Home Living Essentials',
-              'Bohemian Furniture & Swings': 'Bohemian Furniture & Swings',
-              'Gifting & Custom Sets': 'Gifting & Custom Sets'
-            };
-            categoryHeader.textContent = categoryNameMap[category] || category;
-            categoryHeader.className = 'text-3xl font-bold mt-12 mb-6 col-span-full';
-            productList.appendChild(categoryHeader);
-
-            items.forEach(product => {
-              const productCard = document.createElement('a');
-              productCard.href = `product${product._id}.html`;
-              productCard.className = 'product-card';
-
-              productCard.innerHTML = `
-                <img src="${product.images && product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/200x150'}" alt="${product.name}" />
-                <h2>${product.name}</h2>
-                <p class="price">${product.price ? '$' + product.price.toFixed(2) : ''}</p>
-              `;
-
-              productList.appendChild(productCard);
-            });
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    }
-
-    // Fetch products on page load
-    fetchProducts();
-
-    // Filter products by category
-    document.getElementById('category-filter').addEventListener('change', (e) => {
-      fetchProducts(e.target.value);
+        container.appendChild(productCard);
+      });
     });
   </script>
 
